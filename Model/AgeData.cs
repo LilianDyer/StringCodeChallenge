@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace StringCodeChallenge.Model
 {
@@ -10,7 +6,7 @@ namespace StringCodeChallenge.Model
     {
         public required string Data { get; set; }
 
-        public int Count()
+        private int Count()
         {
             var dataArr = Data.Split(',');
             var ages = dataArr.ToList().FindAll(x => x.Contains("age="));
@@ -20,8 +16,25 @@ namespace StringCodeChallenge.Model
             return count;
         }
 
+        private int CountUsingRegex()
+        {
+            var count = Regex.Matches(Data, "age=[5-9][0-9]").Count;
+            return count;
+        }
+
+        public int Count(string data)
+        {
+            Data = data;
+            return Count();
+        }
+
         public int GetCount() {
             return Count();
+        }
+
+        public int GetCountUsingRegex()
+        {
+            return CountUsingRegex();
         }
 
     }
